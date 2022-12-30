@@ -135,7 +135,6 @@ const Home = () => {
   }
 
   useEffect(() => {
-    debugger;
     if (filteredJobs?.length) {
       const data = toCSV(filteredJobs);
       setCsvData(data);
