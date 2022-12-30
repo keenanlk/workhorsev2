@@ -23,6 +23,7 @@ import ConfirmDeleteAlert from "../components/ConfirmDeleteAlert";
 import JobsTable from "../components/JobsTable";
 
 import { useJobs } from "../contexts/JobsContext";
+import { CSVLink } from "react-csv";
 
 const Home = () => {
   const { jobs, addJob, removeJob, loading } = useJobs();
@@ -48,6 +49,7 @@ const Home = () => {
     .sort((a, b) => b - a) || [2022];
 
   const [filteredJobs, setFilteredJobs] = useState(() => sortAndFilterJobs());
+  const [csvData, setCsvData] = useState();
 
   const toast = useToast();
 
@@ -91,6 +93,55 @@ const Home = () => {
   const columnHelper = createColumnHelper();
   const columns = getTableColumns(columnHelper, filteredJobs);
 
+  function toCSV(array) {
+    // Create an array for the CSV rows
+    const rows = [];
+
+    // Add the header row
+    rows.push([
+      "name",
+      "date",
+      "description",
+      "labor",
+      "mileage",
+      "partsCost",
+      "partsTax",
+      "total",
+    ]);
+
+    // Convert the array of objects to an array of rows
+    array.forEach((item) => {
+      // Convert the date to a human-readable string
+      const dateString = new Date(item.date * 1000).toString();
+
+      // Create an array for the current row
+      const row = [
+        item.name,
+        dateString,
+        item.description,
+        item.labor,
+        item.mileage,
+        item.partsCost,
+        item.partsTax,
+        item.total,
+      ];
+
+      // Add the row to the array
+      rows.push(row);
+    });
+
+    // Wrap the rows array in another array and return it
+    return [rows];
+  }
+
+  useEffect(() => {
+    debugger;
+    if (filteredJobs?.length) {
+      const data = toCSV(filteredJobs);
+      setCsvData(data);
+    }
+  }, [filteredJobs]);
+
   const table = useReactTable({
     data: filteredJobs,
     columns,
@@ -133,6 +184,7 @@ const Home = () => {
             <Button onClick={() => setNewJob(true)}>
               <FiPlus />
             </Button>
+            {csvData && <CSVLink data={filteredJobs}>Export to CSV</CSVLink>}
           </Heading>
 
           <Input
