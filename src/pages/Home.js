@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { createRef, useEffect, useState } from "react";
 import {
   Heading,
   Box,
@@ -31,6 +31,7 @@ const Home = () => {
   const [search, setSearch] = useState("");
   const [confirmDeleteOpen, setConfirmDeleteOpen] = useState(null);
   const [tabIndex, setTabIndex] = useState(0);
+  const csvLink = createRef();
 
   useEffect(() => {
     localStorage.setItem("chakra-ui-color-mode", "dark");
@@ -183,7 +184,14 @@ const Home = () => {
             <Button onClick={() => setNewJob(true)}>
               <FiPlus />
             </Button>
-            {csvData && <CSVLink data={filteredJobs}>Export to CSV</CSVLink>}
+            {csvData && (
+              <>
+                <Button onClick={() => csvLink.current.link.click()}>
+                  Export to CSV
+                </Button>
+                <CSVLink ref={csvLink} data={filteredJobs} className="hidden" />
+              </>
+            )}
           </Heading>
 
           <Input
