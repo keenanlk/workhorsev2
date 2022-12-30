@@ -1,0 +1,17 @@
+type Job @model @auth(rules: [{ allow: owner }]) {
+  id: ID!
+  name: String!
+  date: AWSTimestamp!
+  description: String
+  labor: Float
+  mileage: Float
+  partsCost: Float
+  partsTax: Float
+  total: Float
+}
+
+type Note @model @auth(rules: [{ allow: owner }]) {
+  id: ID!
+  name: String!
+  description: String
+}

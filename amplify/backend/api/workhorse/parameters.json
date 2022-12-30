@@ -1,0 +1,12 @@
+{
+  "AppSyncApiName": "workhorse",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthCognitoUserPoolId": {
+    "Fn::GetAtt": [
+      "authworkhorsefe1c9b49",
+      "Outputs.UserPoolId"
+    ]
+  },
+  "AuthModeLastUpdated": "2022-12-29T03:27:14.455Z"
+}

@@ -1,24 +1,32 @@
-import logo from "./logo.svg";
+import React, { useState, useEffect } from "react";
+import "./App.css";
 import "@aws-amplify/ui-react/styles.css";
-import {
-  withAuthenticator,
-  Button,
-  Heading,
-  Image,
-  View,
-  Card,
-} from "@aws-amplify/ui-react";
+import { withAuthenticator } from "@aws-amplify/ui-react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { ChakraProvider } from "@chakra-ui/react";
+import Layout from "./pages/Layout";
+import Home from "./pages/Home";
 
-function App({ signOut }) {
+import { JobsContextProvider } from "./contexts/JobsContext";
+import Reports from "./pages/Reports";
+
+const App = ({ signOut }) => {
+  const [notes, setNotes] = useState([]);
+
   return (
-    <View className="App">
-      <Card>
-        <Image src={logo} className="App-logo" alt="logo" />
-        <Heading level={1}>We now have Auth!</Heading>
-      </Card>
-      <Button onClick={signOut}>Sign Out</Button>
-    </View>
+    <ChakraProvider>
+      <JobsContextProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Layout signOut={signOut} />}>
+              <Route index element={<Home />} />
+              <Route path="/reports" element={<Reports />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </JobsContextProvider>
+    </ChakraProvider>
   );
-}
+};
 
 export default withAuthenticator(App);

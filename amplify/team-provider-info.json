@@ -14,6 +14,9 @@
     "categories": {
       "auth": {
         "workhorsefe1c9b49": {}
+      },
+      "api": {
+        "workhorse": {}
       }
     }
   }
