@@ -15,6 +15,24 @@ import {
   ApolloProvider,
   gql,
 } from "@apollo/client";
+
+const isLocalhost = Boolean(
+  window.location.hostname === "localhost" ||
+    // [::1] is the IPv6 localhost address.
+    window.location.hostname === "[::1]" ||
+    // 127.0.0.1/8 is considered localhost for IPv4.
+    window.location.hostname.match(
+      /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/
+    )
+);
+
+if (!isLocalhost) {
+  config.oauth.redirectSignIn = "https://main.d2pfx7tyhkubif.amplifyapp.com/";
+  config.oauth.redirectSignOut = "https://main.d2pfx7tyhkubif.amplifyapp.com/";
+} else {
+  config.oauth.redirectSignIn = "http://localhost:3000,";
+  config.oauth.redirectSignOut = "http://localhost:3000,";
+}
 Amplify.configure(config);
 
 const url = config.aws_appsync_graphqlEndpoint;
