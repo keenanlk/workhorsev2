@@ -7,7 +7,9 @@ import { useQuery, useMutation } from "@apollo/client";
 const jobsContext = createContext();
 
 export function JobsContextProvider({ children }) {
-  const { loading, error, data } = useQuery(listJobs);
+  const { loading, error, data } = useQuery(listJobs, {
+    variables: { limit: 500 },
+  });
 
   const [
     createJob,
