@@ -9,12 +9,7 @@ import { ApolloLink } from "apollo-link";
 import { createAuthLink } from "aws-appsync-auth-link";
 import { createHttpLink } from "apollo-link-http";
 
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloProvider,
-  gql,
-} from "@apollo/client";
+import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 
 const isLocalhost = Boolean(
   window.location.hostname === "localhost" ||
@@ -30,8 +25,8 @@ if (!isLocalhost) {
   config.oauth.redirectSignIn = "https://main.d2pfx7tyhkubif.amplifyapp.com/";
   config.oauth.redirectSignOut = "https://main.d2pfx7tyhkubif.amplifyapp.com/";
 } else {
-  config.oauth.redirectSignIn = "http://localhost:3000,";
-  config.oauth.redirectSignOut = "http://localhost:3000,";
+  config.oauth.redirectSignIn = "http://localhost:3000";
+  config.oauth.redirectSignOut = "http://localhost:3000";
 }
 Amplify.configure(config);
 

@@ -10,7 +10,7 @@ import {
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
 import { useEffect } from "react";
-import { Box } from "@chakra-ui/react";
+import { Box, Spinner } from "@chakra-ui/react";
 
 const MONTHS = Object.freeze([
   "January",
@@ -53,7 +53,7 @@ const Charts = ({ jobs }) => {
   };
 
   function getIncomeByMonth() {
-    const result = MONTHS.reduce((acc, month, index) => {
+    return MONTHS.reduce((acc, month, index) => {
       const monthNumber = index;
       const jobFormonth = jobs.reduce((total, job) => {
         const jobDate = new Date(job.date * 1000);
@@ -66,7 +66,6 @@ const Charts = ({ jobs }) => {
       acc[index] = jobFormonth;
       return acc;
     }, []);
-    return result;
   }
 
   function createChart() {
@@ -92,7 +91,7 @@ const Charts = ({ jobs }) => {
         {incomeByMonthChart ? (
           <Bar options={options} data={incomeByMonthChart} />
         ) : (
-          <h1>Loading</h1>
+          <Spinner />
         )}
       </Box>
     </>

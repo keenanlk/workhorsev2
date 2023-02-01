@@ -42,7 +42,7 @@ const NavBarContent = ({ signOut, onClose, LinkItems, ...rest }) => {
           {link.name}
         </NavItem>
       ))}
-      <Button onClick={signOut}>Sign out</Button>
+      <NavItem onClick={signOut}>Sign out</NavItem>
     </Box>
   );
 };

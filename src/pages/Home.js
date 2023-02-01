@@ -5,7 +5,6 @@ import {
   Button,
   Input,
   useToast,
-  Spinner,
   TabList,
   Tab,
   Tabs,
@@ -95,44 +94,23 @@ const Home = () => {
   const columns = getTableColumns(columnHelper, filteredJobs);
 
   function toCSV(array) {
-    // Create an array for the CSV rows
-    const rows = [];
-
-    // Add the header row
-    rows.push([
-      "name",
-      "date",
-      "description",
-      "labor",
-      "mileage",
-      "partsCost",
-      "partsTax",
-      "total",
-    ]);
-
     // Convert the array of objects to an array of rows
-    array.forEach((item) => {
+    return array.map((item) => {
       // Convert the date to a human-readable string
       const dateString = new Date(item.date * 1000).toString();
 
       // Create an array for the current row
-      const row = [
-        item.name,
-        dateString,
-        item.description,
-        item.labor,
-        item.mileage,
-        item.partsCost,
-        item.partsTax,
-        item.total,
-      ];
-
-      // Add the row to the array
-      rows.push(row);
+      return {
+        name: item.name,
+        date: dateString,
+        description: item.description,
+        labor: item.labor,
+        mileage: item.mileage,
+        "Parts Cost": item.partsCost.toFixed(2).toString(),
+        "Parts Tax": item.partsTax.toFixed(2).toString(),
+        Total: item.total.toFixed(2).toString(),
+      };
     });
-
-    // Wrap the rows array in another array and return it
-    return [rows];
   }
 
   useEffect(() => {
@@ -179,18 +157,21 @@ const Home = () => {
             />
           )}
 
-          <Heading p={4}>
-            Jobs{"  "}
-            <Button onClick={() => setNewJob(true)}>
-              <FiPlus />
-            </Button>
+          <Heading p={4} style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <div>
+              Jobs{"  "}
+              <Button onClick={() => setNewJob(true)}>
+                <FiPlus />
+              </Button>
+            </div>
+
             {csvData && (
-              <>
+              <div>
                 <Button onClick={() => csvLink.current.link.click()}>
                   Export to CSV
                 </Button>
-                <CSVLink ref={csvLink} data={filteredJobs} className="hidden" />
-              </>
+                <CSVLink ref={csvLink} data={csvData} className="hidden" />
+              </div>
             )}
           </Heading>
 

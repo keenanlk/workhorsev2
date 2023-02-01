@@ -11,8 +11,6 @@ import { JobsContextProvider } from "./contexts/JobsContext";
 import Reports from "./pages/Reports";
 
 const App = ({ signOut }) => {
-  const [notes, setNotes] = useState([]);
-
   return (
     <ChakraProvider>
       <JobsContextProvider>

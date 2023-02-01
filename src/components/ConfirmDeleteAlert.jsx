@@ -7,10 +7,16 @@ import {
   AlertDialogFooter,
   Button,
 } from "@chakra-ui/react";
+import { useRef } from "react";
 
 const ConfirmDeleteAlert = ({ deleteData, cancelDelete, deleteJob }) => {
+  const cancelRef = useRef();
   return (
-    <AlertDialog isOpen={deleteData} onClose={cancelDelete}>
+    <AlertDialog
+      isOpen={deleteData}
+      onClose={cancelDelete}
+      leastDestructiveRef={cancelRef}
+    >
       <AlertDialogOverlay>
         <AlertDialogContent>
           <AlertDialogHeader fontSize="lg" fontWeight="bold">
@@ -21,7 +27,9 @@ const ConfirmDeleteAlert = ({ deleteData, cancelDelete, deleteJob }) => {
             <strong>{deleteData.name}</strong>?
           </AlertDialogBody>
           <AlertDialogFooter>
-            <Button onClick={cancelDelete}>Cancel</Button>
+            <Button onClick={cancelDelete} ref={cancelRef}>
+              Cancel
+            </Button>
             <Button colorScheme="red" onClick={deleteJob} ml={3}>
               Delete
             </Button>

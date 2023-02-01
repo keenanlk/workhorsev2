@@ -1,20 +1,16 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { listJobs } from "../gql/queries";
 import { CreateJob, DeleteJob, UpdateJob } from "../gql/mutations";
-import { API } from "aws-amplify";
 import { useQuery, useMutation } from "@apollo/client";
 
 const jobsContext = createContext();
 
 export function JobsContextProvider({ children }) {
-  const { loading, error, data } = useQuery(listJobs, {
+  const { loading, data } = useQuery(listJobs, {
     variables: { limit: 500 },
   });
 
-  const [
-    createJob,
-    { data: createJobData, loading: createJobLoading, error: createJobError },
-  ] = useMutation(CreateJob, {
+  const [createJob, { loading: createJobLoading }] = useMutation(CreateJob, {
     refetchQueries: [{ query: listJobs, variables: {} }],
   });
 
@@ -31,17 +27,11 @@ export function JobsContextProvider({ children }) {
     });
   }
 
-  const [
-    deleteJob,
-    { data: deleteJobData, loading: deleteJobLoading, error: deleteJobError },
-  ] = useMutation(DeleteJob, {
+  const [deleteJob, { loading: deleteJobLoading }] = useMutation(DeleteJob, {
     refetchQueries: [{ query: listJobs }],
   });
 
-  const [
-    updateJob,
-    { data: updateJobData, loading: updateJobLoading, error: updateJobError },
-  ] = useMutation(UpdateJob, {
+  const [updateJob, { loading: updateJobLoading }] = useMutation(UpdateJob, {
     refetchQueries: [{ query: listJobs }],
   });
 
@@ -58,7 +48,7 @@ export function JobsContextProvider({ children }) {
   async function saveJob(job) {
     delete job.__typename;
     const date = new Date(job.date);
-    date.setHours(date.getHours() + 5);
+    date.setHours(date.getHours() + 12);
 
     delete job.createdAt;
     delete job.updatedAt;

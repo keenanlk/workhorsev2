@@ -13,7 +13,7 @@ import Stats from "../components/Stats";
 import Charts from "../components/Charts";
 
 const Reports = () => {
-  const { jobs, addJob, loading, removeJob } = useJobs() || {};
+  const { jobs } = useJobs() || {};
   const [tabIndex, setTabIndex] = useState(0);
 
   const years = jobs
