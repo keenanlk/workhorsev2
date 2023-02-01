@@ -22,4 +22,4 @@ I am using React's Context API for state management.
 The data is laid out in a table format with virtualized rows and inline actions to update and delete.
 
 ![Table Layout](public/tableLayout.png)
-![Inline Actions](public/inlineActions.png)
+![Inline Actions](public/InlineActions.png)
