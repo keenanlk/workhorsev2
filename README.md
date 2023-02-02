@@ -19,7 +19,12 @@ This application was built directly for my dad so we are tracking mileage, parts
 
 We are using graphql to create, update, and remove jobs from DynamoDB. Amplify makes everything very easy to configure so setup is a breeze.
 I am using React's Context API for state management.
-The data is laid out in a table format with virtualized rows and inline actions to update and delete.
+The data is laid out in a table format with inline actions to update and delete.
 
 ![Table Layout](public/tableLayout.png)
 ![Inline Actions](public/InlineActions.png)
+
+I also have a reports page to show some statistics for the year.
+The chart is from the Chart.Js libray
+
+![Reports](public/reports.png)
