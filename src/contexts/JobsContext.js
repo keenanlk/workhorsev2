@@ -11,7 +11,13 @@ export function JobsContextProvider({ children }) {
   });
 
   const [createJob, { loading: createJobLoading }] = useMutation(CreateJob, {
-    refetchQueries: [{ query: listJobs, variables: { limit: 500 } }],
+    refetchQueries: [
+      {
+        query: listJobs,
+        variables: { limit: 500 },
+        fetchPolicy: "network-only",
+      },
+    ],
   });
 
   async function addJob(job) {
