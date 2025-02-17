@@ -7,14 +7,14 @@ const jobsContext = createContext();
 
 export function JobsContextProvider({ children }) {
   const { loading, data } = useQuery(listJobs, {
-    variables: { limit: 500 },
+    variables: { limit: 22500 },
   });
 
   const [createJob, { loading: createJobLoading }] = useMutation(CreateJob, {
     refetchQueries: [
       {
         query: listJobs,
-        variables: { limit: 500 },
+        variables: { limit: 2500 },
         fetchPolicy: "network-only",
       },
     ],
@@ -34,11 +34,11 @@ export function JobsContextProvider({ children }) {
   }
 
   const [deleteJob, { loading: deleteJobLoading }] = useMutation(DeleteJob, {
-    refetchQueries: [{ query: listJobs, variables: { limit: 500 } }],
+    refetchQueries: [{ query: listJobs, variables: { limit: 2500 } }],
   });
 
   const [updateJob, { loading: updateJobLoading }] = useMutation(UpdateJob, {
-    refetchQueries: [{ query: listJobs, variables: { limit: 500 } }],
+    refetchQueries: [{ query: listJobs, variables: { limit: 2500 } }],
   });
 
   async function removeJob(id) {
