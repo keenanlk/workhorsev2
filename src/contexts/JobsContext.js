@@ -7,7 +7,7 @@ const jobsContext = createContext();
 
 export function JobsContextProvider({ children }) {
   const { loading, data } = useQuery(listJobs, {
-    variables: { limit: 22500 },
+    variables: { limit: 2500 },
   });
 
   const [createJob, { loading: createJobLoading }] = useMutation(CreateJob, {
